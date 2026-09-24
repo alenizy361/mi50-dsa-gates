@@ -1,0 +1,4 @@
+bin/
+results/*.log
+results/*.csv
+__pycache__/
