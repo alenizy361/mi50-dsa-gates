@@ -2,7 +2,7 @@
 
 Micro-benchmarks that decide whether a **753B DSA-sparse MoE (GLM-5.3) at Q8 can run on 32 × AMD Instinct MI50 (gfx906)** at ≥ 20 tok/s for one user — before anyone buys four servers or writes an inference engine.
 
-> **Status: looking for the first results.** The code has been reviewed against ROCm/RCCL/kernel sources but not yet compiled on a real MI50 (the authors have none in reach). If `./build.sh` needs a patch on your box, please open a PR — it will be merged fast. The story and the ask: [POST.md](POST.md).
+> **Status: compiles clean, looking for the first results.** All four gates build with 0 errors / 0 warnings on ROCm 6.4.1 (`hipcc 6.4.43483`, `--offload-arch=gfx906`), and the gfx906 assembly contains what the design relies on (`v_dot4_i32_i8` ×88 in gate 4, `s_sleep` in every poll loop, `glc slc` HDP-flush stores, `buffer_wbinvl1_vol` acquire fences, `s_memrealtime` timestamps). They have **not yet run on a real MI50** — the authors have none in reach — so runtime behaviour is unverified; if anything fails on your box, please open an issue with the output. The story and the ask: [POST.md](POST.md).
 
 The design under test: 4 single-root servers × 8 MI50 32 GB, tensor-parallel 8 inside a server, pipeline across servers, ~234 one-shot P2P collectives per token written from persistent kernels, DSA top-2048 sparse attention with a sequence-sharded indexer, MTP speculation, ~800 GB of q8_0 weights. Its decode budget is **≤ 576 µs per layer at 100k context**. A neutral review (100-agent panel, 45 findings, adversarially verified) found the design's arithmetic sound but resting on **five unmeasured assumptions that can each sink it**. These gates measure them. Each takes minutes on one box.
 

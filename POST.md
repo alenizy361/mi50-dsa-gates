@@ -51,7 +51,7 @@ Every result goes into the repo with your name on it. If the gates pass, the nex
 
 ## Honest caveats
 
-Nothing here is measured yet. The design's arithmetic was checked by a review that verified every model number against the released config and every hardware claim against ROCm, RCCL and kernel sources — but the code itself was reviewed, not compiled: the authors have no MI50 in reach. The first `./build.sh` on a real box may want a one-line patch; PRs are welcome and will be merged fast. And this is engineering, not science: every technique here exists somewhere (RCCL's HDP flush, ESS/HiSparse for the KV tier, kog.ai's MI300X megakernel). The new part is putting them on a $150 card for a 753B model, and finding out whether the card says yes.
+Nothing here is measured yet. The design's arithmetic was checked by a review that verified every model number against the released config and every hardware claim against ROCm, RCCL and kernel sources — and the code compiles clean for gfx906 on ROCm 6.4.1 (0 warnings; the assembly shows the `v_dot4_i32_i8`, `s_sleep` and `glc slc` instructions the design relies on) — but it has never *run* on a real MI50: the authors have none in reach. Runtime surprises are possible; PRs are welcome and will be merged fast. And this is engineering, not science: every technique here exists somewhere (RCCL's HDP flush, ESS/HiSparse for the KV tier, kog.ai's MI300X megakernel). The new part is putting them on a $150 card for a 753B model, and finding out whether the card says yes.
 
 Background for the curious: [ESS](https://arxiv.org/abs/2512.10576), [HiSparse](https://arxiv.org/abs/2608.07009), [NVIDIA GVR](https://arxiv.org/abs/2604.22312) (measured DSA top-k churn), ROCm #4793, DByte308/x99-p2p-fix.
 
