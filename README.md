@@ -53,7 +53,7 @@ Copy `RESULTS_TEMPLATE.md`, fill it, and open an issue titled `results: <chassis
 ## Background
 
 * Design + review: the v5 architecture document and its verified review (link in the issue tracker).
-* MI50 P2P being non-turnkey: ROCm/ROCm issue #4793 (P2P N/A on 2 × MI50), DByte308/x99-p2p-fix (44-bit DMA mask vs BAR placement; +22–26 % after fixing), vllm-gfx906 forks running with `NCCL_P2P_DISABLE=1`.
+* MI50 P2P being non-turnkey: ROCm issue #4793 (now at ROCm/legacy-rocm-build; P2P N/A on 2 × MI50), DByte308/x99-p2p-fix (44-bit DMA mask vs BAR placement; +22–26 % after fixing), vllm-gfx906 forks running with `NCCL_P2P_DISABLE=1`.
 * Prior art for the KV tier the design proposes: [ESS](https://arxiv.org/abs/2512.10576) (latent cache offload for DeepSeek-V3.2), [HiSparse](https://arxiv.org/abs/2608.07009) (hierarchical KV cache for sparse attention; LRU miss rate 13.4 % at a 4096-entry GPU cache), [NVIDIA GVR](https://arxiv.org/abs/2604.22312) (measured top-2048 overlap between consecutive DSA steps: 35–50 % in deep layers, ~1–2 % in layers 0–1).
 * Megakernels on AMD: kog.ai single-kernel engine on 8 × MI300X; Hazy Research TP megakernel.
 

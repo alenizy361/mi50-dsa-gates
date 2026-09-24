@@ -1,4 +1,4 @@
-# Community post — r/LocalLLaMA · llama.cpp discussions #15021 / #23881 · vllm-gfx906 issues
+# Community post — r/LocalLLaMA · llama.cpp discussion #15021 · gfx906 project issues (see OUTREACH in the issue tracker)
 
 **Title:** We think ~$5k of end-of-life MI50s can run a 753B frontier MoE (GLM-5.3, Q8) at 27 tok/s. Nobody has tried. We need 30 minutes of your cards to find out.
 
